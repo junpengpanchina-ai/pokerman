@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝可梦传说 - Pokemon Legends</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23ffd700" opacity="0.3"/></svg>');
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        /* Pokemon Grid */
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pokemon-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pokemon-card img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .pokemon-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pokemon-card p {
+            opacity: 0.9;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #e74c3c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pokemon-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .search-bar {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #e74c3c;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.9;
+        }
+
+        /* Guides Section */
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .guide-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .guide-card:hover::before {
+            left: 100%;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .guide-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .guide-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .guide-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .guide-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Community Section */
+        .community-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .forum-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .forum-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .forum-post {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .forum-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .post-avatar {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .post-content {
+            flex: 1;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-author {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .post-time {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .post-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .post-content p {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .post-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .community-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .feature-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .feature-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .community-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* News Section */
+        .news-content {
+            margin-top: 2rem;
+        }
+
+        .featured-news {
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .news-card.featured {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .news-image.small {
+            height: 120px;
+            font-size: 2rem;
+        }
+
+        .news-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .news-category {
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .news-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .news-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+
+        .news-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+
+        .news-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .news-tag {
+            background: #f8f9fa;
+            color: #666;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-categories {
+            text-align: center;
+        }
+
+        .news-categories h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .category-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            color: #666;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .news-card.featured {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">宝可梦传说</a>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#pokedex">图鉴</a></li>
+                <li><a href="#guides">攻略</a></li>
+                <li><a href="#community">社区</a></li>
+                <li><a href="#news">新闻</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="fade-in">
+            <h1>宝可梦传说</h1>
+            <p>探索神奇宝贝的世界，收集图鉴，分享攻略，加入我们的宝可梦社区！</p>
+            <div class="cta-buttons">
+                <a href="#pokedex" class="btn btn-primary">开始探索</a>
+                <a href="#community" class="btn btn-secondary">加入社区</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Featured Pokemon -->
+        <section id="pokedex" class="section">
+            <h2>热门宝可梦</h2>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="搜索宝可梦..." id="pokemonSearch">
+            </div>
+            <div class="pokemon-grid" id="pokemonGrid">
+                <!-- Pokemon cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <h2>网站特色</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <h3>完整图鉴</h3>
+                    <p>包含所有世代的宝可梦信息，详细的数据统计和进化链</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎮</div>
+                    <h3>游戏攻略</h3>
+                    <p>最新的游戏攻略和技巧分享，助你成为宝可梦大师</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👥</div>
+                    <h3>社区交流</h3>
+                    <p>与其他训练师交流经验，分享你的宝可梦故事</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📰</div>
+                    <h3>最新资讯</h3>
+                    <p>第一时间获取宝可梦相关的最新消息和活动</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guides Section -->
+        <section id="guides" class="section">
+            <h2>游戏攻略</h2>
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="guide-icon">🎯</div>
+                    <h3>新手入门指南</h3>
+                    <p>从零开始学习宝可梦游戏的基础知识，包括战斗系统、属性相克、进化机制等核心概念。</p>
+                    <div class="guide-tags">
+                        <span class="tag">新手</span>
+                        <span class="tag">基础</span>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">⚔️</div>
+                    <h3>对战技巧</h3>
+                    <p>掌握高级对战策略，学习队伍搭配、技能选择、天气利用等专业技巧。</p>
+                    <div class="guide-tags">
+                        <span class="tag">对战</span>
+                        <span class="tag">高级</span>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🔍</div>
+                    <h3>宝可梦捕捉</h3>
+                    <p>学习如何高效捕捉稀有宝可梦，了解不同精灵球的特性和使用时机。</p>
+                    <div class="guide-tags">
+                        <span class="tag">捕捉</span>
+                        <span class="tag">稀有</span>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🌟</div>
+                    <h3>进化攻略</h3>
+                    <p>详细的进化条件和方法，包括特殊进化、地区形态、Mega进化等。</p>
+                    <div class="guide-tags">
+                        <span class="tag">进化</span>
+                        <span class="tag">特殊</span>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🏆</div>
+                    <h3>道馆挑战</h3>
+                    <p>各道馆馆主的宝可梦阵容分析，推荐队伍搭配和战斗策略。</p>
+                    <div class="guide-tags">
+                        <span class="tag">道馆</span>
+                        <span class="tag">挑战</span>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon">🎮</div>
+                    <h3>隐藏要素</h3>
+                    <p>游戏中的隐藏道具、秘密区域、特殊事件等彩蛋内容大揭秘。</p>
+                    <div class="guide-tags">
+                        <span class="tag">隐藏</span>
+                        <span class="tag">彩蛋</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="section">
+            <h2>宝可梦社区</h2>
+            <div class="community-content">
+                <!-- Forum Posts -->
+                <div class="forum-section">
+                    <h3>热门讨论</h3>
+                    <div class="forum-posts">
+                        <div class="forum-post">
+                            <div class="post-avatar">👤</div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <span class="post-author">皮卡丘训练师</span>
+                                    <span class="post-time">2小时前</span>
+                                </div>
+                                <h4>分享我的闪光皮卡丘！</h4>
+                                <p>今天终于抓到了闪光皮卡丘，太激动了！大家有什么好的配招建议吗？</p>
+                                <div class="post-stats">
+                                    <span>👍 45</span>
+                                    <span>💬 12</span>
+                                    <span>🔥 热门</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-post">
+                            <div class="post-avatar">🎮</div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <span class="post-author">对战大师</span>
+                                    <span class="post-time">5小时前</span>
+                                </div>
+                                <h4>最新对战环境分析</h4>
+                                <p>分析了当前排位赛的meta，推荐几个强势的宝可梦组合...</p>
+                                <div class="post-stats">
+                                    <span>👍 78</span>
+                                    <span>💬 23</span>
+                                    <span>📊 分析</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forum-post">
+                            <div class="post-avatar">🔍</div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <span class="post-author">探索者</span>
+                                    <span class="post-time">1天前</span>
+                                </div>
+                                <h4>隐藏洞穴发现分享</h4>
+                                <p>在森林深处发现了一个隐藏洞穴，里面有稀有的化石宝可梦...</p>
+                                <div class="post-stats">
+                                    <span>👍 32</span>
+                                    <span>💬 8</span>
+                                    <span>🗺️ 探索</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Features -->
+                <div class="community-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>讨论区</h3>
+                        <p>与其他训练师交流经验，分享你的宝可梦故事</p>
+                        <button class="feature-btn">进入讨论</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>对战联盟</h3>
+                        <p>参加在线对战，挑战其他训练师，提升排名</p>
+                        <button class="feature-btn">开始对战</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <h3>分享中心</h3>
+                        <p>分享你的宝可梦截图、视频和精彩瞬间</p>
+                        <button class="feature-btn">上传分享</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>训练师群组</h3>
+                        <p>加入兴趣群组，找到志同道合的训练师伙伴</p>
+                        <button class="feature-btn">查看群组</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <h2>最新资讯</h2>
+            <div class="news-content">
+                <!-- Featured News -->
+                <div class="featured-news">
+                    <div class="news-card featured">
+                        <div class="news-image">
+                            <div class="news-badge">🔥 热门</div>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-category">游戏更新</span>
+                                <span class="news-date">2024年1月15日</span>
+                            </div>
+                            <h3>《宝可梦传说：阿尔宙斯》DLC正式发布！</h3>
+                            <p>全新的传说宝可梦、扩展地图区域、更多剧情内容等你来探索！新DLC包含超过20小时的游戏内容...</p>
+                            <div class="news-tags">
+                                <span class="news-tag">DLC</span>
+                                <span class="news-tag">新内容</span>
+                                <span class="news-tag">传说宝可梦</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Grid -->
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-image small"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-category">活动</span>
+                                <span class="news-date">2024年1月12日</span>
+                            </div>
+                            <h4>闪光宝可梦出现率提升活动开始！</h4>
+                            <p>本周末闪光宝可梦的出现率将提升3倍，是收集稀有宝可梦的最佳时机...</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image small"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-category">对战</span>
+                                <span class="news-date">2024年1月10日</span>
+                            </div>
+                            <h4>世界锦标赛报名开始</h4>
+                            <p>2024年宝可梦世界锦标赛报名正式开启，总奖金池超过100万美元...</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image small"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-category">周边</span>
+                                <span class="news-date">2024年1月8日</span>
+                            </div>
+                            <h4>皮卡丘主题限定周边发售</h4>
+                            <p>全新皮卡丘主题限定周边系列正式发售，包含手办、服装、文具等精美商品...</p>
+                        </div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-image small"></div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-category">动画</span>
+                                <span class="news-date">2024年1月5日</span>
+                            </div>
+                            <h4>《宝可梦》新动画系列预告片发布</h4>
+                            <p>全新的宝可梦动画系列即将开播，全新的主角和冒险故事等你来观看...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Categories -->
+                <div class="news-categories">
+                    <h3>新闻分类</h3>
+                    <div class="category-buttons">
+                        <button class="category-btn active">全部</button>
+                        <button class="category-btn">游戏更新</button>
+                        <button class="category-btn">活动</button>
+                        <button class="category-btn">对战</button>
+                        <button class="category-btn">周边</button>
+                        <button class="category-btn">动画</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="section">
+            <h2>社区统计</h2>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">注册用户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">攻略文章</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10000+</div>
+                    <div class="stat-label">宝可梦图鉴</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">社区帖子</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>宝可梦传说是专为宝可梦爱好者打造的综合性平台，致力于为训练师们提供最好的服务。</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="#pokedex">宝可梦图鉴</a></li>
+                    <li><a href="#guides">游戏攻略</a></li>
+                    <li><a href="#community">社区论坛</a></li>
+                    <li><a href="#news">最新资讯</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <ul>
+                    <li>邮箱: contact@pokemon-legends.com</li>
+                    <li>QQ群: 123456789</li>
+                    <li>微信公众号: 宝可梦传说</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #34495e;">
+            <p>&copy; 2024 宝可梦传说. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Pokemon data
+        const pokemonData = [
+            { id: 1, name: '妙蛙种子', type: '草/毒', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%2390EE90"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' },
+            { id: 4, name: '小火龙', type: '火', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FF6B6B"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' },
+            { id: 7, name: '杰尼龟', type: '水', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%234ECDC4"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' },
+            { id: 25, name: '皮卡丘', type: '电', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFD93D"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' },
+            { id: 133, name: '伊布', type: '一般', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23A8A8A8"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' },
+            { id: 6, name: '喷火龙', type: '火/飞行', image: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FF8C42"/><circle cx="35" cy="40" r="5" fill="black"/><circle cx="65" cy="40" r="5" fill="black"/><ellipse cx="50" cy="60" rx="8" ry="4" fill="black"/></svg>' }
+        ];
+
+        // Generate Pokemon cards
+        function generatePokemonCards(pokemonList = pokemonData) {
+            const grid = document.getElementById('pokemonGrid');
+            grid.innerHTML = '';
+            
+            pokemonList.forEach(pokemon => {
+                const card = document.createElement('div');
+                card.className = 'pokemon-card fade-in';
+                card.innerHTML = `
+                    <img src="${pokemon.image}" alt="${pokemon.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'40\' fill=\'%23ddd\'/></svg>'">
+                    <h3>${pokemon.name}</h3>
+                    <p>类型: ${pokemon.type}</p>
+                    <p>编号: #${pokemon.id.toString().padStart(3, '0')}</p>
+                `;
+                card.addEventListener('click', () => {
+                    alert(`你点击了 ${pokemon.name}！\n类型: ${pokemon.type}\n编号: #${pokemon.id.toString().padStart(3, '0')}`);
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchBar = document.getElementById('pokemonSearch');
+            searchBar.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredPokemon = pokemonData.filter(pokemon => 
+                    pokemon.name.toLowerCase().includes(searchTerm) ||
+                    pokemon.type.toLowerCase().includes(searchTerm)
+                );
+                generatePokemonCards(filteredPokemon);
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePokemonCards();
+            setupSearch();
+            setupSmoothScrolling();
+            
+            // Add some interactive effects
+            document.querySelectorAll('.pokemon-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add guide card interactions
+            document.querySelectorAll('.guide-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    alert(`你点击了 "${title}" 攻略！\n这个功能正在开发中，敬请期待！`);
+                });
+            });
+
+            // Add community interactions
+            document.querySelectorAll('.forum-post').forEach(post => {
+                post.addEventListener('click', function() {
+                    const title = this.querySelector('h4').textContent;
+                    const author = this.querySelector('.post-author').textContent;
+                    alert(`你点击了 "${title}"\n作者: ${author}\n这个功能正在开发中，敬请期待！`);
+                });
+            });
+
+            document.querySelectorAll('.feature-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const feature = this.parentElement.querySelector('h3').textContent;
+                    alert(`你点击了 "${feature}" 功能！\n这个功能正在开发中，敬请期待！`);
+                });
+            });
+
+            // Add news interactions
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3, h4').textContent;
+                    const category = this.querySelector('.news-category').textContent;
+                    alert(`你点击了 "${title}"\n分类: ${category}\n这个功能正在开发中，敬请期待！`);
+                });
+            });
+
+            // Add category filter functionality
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.textContent;
+                    if (category === '全部') {
+                        alert('显示所有新闻分类');
+                    } else {
+                        alert(`筛选 "${category}" 分类的新闻`);
+                    }
+                });
+            });
+        });
+
+        // Add some dynamic content updates
+        setInterval(() => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const currentValue = parseInt(stat.textContent);
+                const newValue = currentValue + Math.floor(Math.random() * 10);
+                stat.textContent = newValue.toLocaleString();
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
